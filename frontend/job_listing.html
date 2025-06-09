@@ -1087,6 +1087,36 @@
     let totalJobs = 0;
     let currentSearchQuery = '';
 
+    // Function to get URL parameters
+    function getURLParameter(name) {
+        const urlParams = new URLSearchParams(window.location.search);
+        return urlParams.get(name);
+    }
+
+    // Function to handle URL parameters (search from index.html)
+    function handleURLParameters() {
+        const searchParam = getURLParameter('search');
+        
+        if (searchParam) {
+            console.log('🔍 Found search parameter from URL:', searchParam);
+            
+            // Set the search input value
+            const searchInput = document.getElementById('job-search-input');
+            if (searchInput) {
+                searchInput.value = searchParam;
+                currentSearchQuery = searchParam;
+                
+                // Show clear button
+                document.getElementById('job-clear-search-btn').style.display = 'block';
+                
+                // Update search status
+                updateSearchStatus();
+                
+                console.log('✅ Search query set from URL parameter');
+            }
+        }
+    }
+
     // Initialize the page
     document.addEventListener('DOMContentLoaded', function() {
         // Disable nice-select for location filter specifically
@@ -1110,8 +1140,11 @@
             }
         }, 100);
         
+        // Handle URL parameters first (before loading data)
+        handleURLParameters();
+        
         loadLocationFilter();
-        loadJobs();
+        loadJobs(); // This will now include the search parameter if it exists
         initializeEventListeners();
     });
 
@@ -1623,6 +1656,18 @@
         loadLocationFilter();
     };
     
+    // Function to update URL with search parameter
+    function updateURL(searchQuery) {
+        const url = new URL(window.location);
+        if (searchQuery && searchQuery.trim()) {
+            url.searchParams.set('search', searchQuery.trim());
+        } else {
+            url.searchParams.delete('search');
+        }
+        // Update URL without reloading the page
+        window.history.replaceState({}, '', url);
+    }
+
     // Search functionality
     function performSearch() {
         const searchInput = document.getElementById('job-search-input');
@@ -1635,6 +1680,7 @@
         
         currentSearchQuery = query;
         updateSearchStatus();
+        updateURL(query); // Update URL with search parameter
         filterJobs(); // This will now combine search with all other active filters
         
         // Show clear button
@@ -1651,6 +1697,9 @@
         // Hide clear button and search status
         document.getElementById('job-clear-search-btn').style.display = 'none';
         hideSearchStatus();
+        
+        // Update URL to remove search parameter
+        updateURL('');
         
         // Reload with current filters (but without search)
         filterJobs();
@@ -1712,6 +1761,9 @@
         // Hide search elements
         document.getElementById('job-clear-search-btn').style.display = 'none';
         hideSearchStatus();
+        
+        // Update URL to remove search parameter
+        updateURL('');
         
         // Reload all jobs
         filterJobs();

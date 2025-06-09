@@ -22,6 +22,120 @@
             <link rel="stylesheet" href="assets/css/slick.css">
             <link rel="stylesheet" href="assets/css/nice-select.css">
             <link rel="stylesheet" href="assets/css/style.css">
+            
+            <!-- Custom CSS for enhanced search bar -->
+            <style>
+                .enhanced-search-box {
+                    max-width: 600px;
+                    margin: 0 auto;
+                    position: relative;
+                }
+                
+                .search-input-container {
+                    display: flex;
+                    align-items: center;
+                    background: white;
+                    border: 3px solid #f0f0f0;
+                    border-radius: 50px;
+                    overflow: hidden;
+                    transition: all 0.3s ease;
+                    box-shadow: 0 8px 30px rgba(0,0,0,0.1);
+                }
+                
+                .search-input-container:hover {
+                    border-color: #1bcf6b;
+                    box-shadow: 0 12px 40px rgba(27, 207, 107, 0.2);
+                    transform: translateY(-2px);
+                }
+                
+                .search-input-container:focus-within {
+                    border-color: #1bcf6b;
+                    box-shadow: 0 0 0 4px rgba(27, 207, 107, 0.15);
+                }
+                
+                #main-search-input {
+                    flex: 1;
+                    border: none;
+                    outline: none;
+                    padding: 20px 30px;
+                    font-size: 18px;
+                    color: #333;
+                    background: transparent;
+                    font-weight: 500;
+                }
+                
+                #main-search-input::placeholder {
+                    color: #999;
+                    font-style: italic;
+                }
+                
+                #main-search-btn {
+                    background: linear-gradient(135deg, #1bcf6b, #17b85d);
+                    color: white;
+                    border: none;
+                    padding: 20px 35px;
+                    cursor: pointer;
+                    transition: all 0.3s ease;
+                    display: flex;
+                    align-items: center;
+                    gap: 10px;
+                    font-weight: 700;
+                    font-size: 18px;
+                    text-transform: uppercase;
+                    letter-spacing: 0.5px;
+                }
+                
+                #main-search-btn:hover {
+                    background: linear-gradient(135deg, #17b85d, #15a052);
+                    transform: scale(1.05);
+                    box-shadow: 0 8px 25px rgba(27, 207, 107, 0.3);
+                }
+                
+                #main-search-btn:active {
+                    transform: scale(0.98);
+                }
+                
+                /* Responsive design */
+                @media (max-width: 768px) {
+                    .enhanced-search-box {
+                        max-width: 90%;
+                        margin: 0 auto;
+                    }
+                    
+                    #main-search-input {
+                        padding: 16px 20px;
+                        font-size: 16px;
+                    }
+                    
+                    #main-search-btn {
+                        padding: 16px 25px;
+                        font-size: 16px;
+                    }
+                    
+                    #main-search-btn span {
+                        display: none;
+                    }
+                }
+                
+                /* Add some breathing room for the hero section */
+                .hero__caption {
+                    margin-bottom: 60px;
+                }
+                
+                .hero__caption h1 {
+                    font-size: 48px;
+                    font-weight: 800;
+                    margin-bottom: 20px;
+                    color: #1e2147;
+                    line-height: 1.2;
+                }
+                
+                @media (max-width: 768px) {
+                    .hero__caption h1 {
+                        font-size: 32px;
+                    }
+                }
+            </style>
    </head>
 
    <body>
@@ -57,16 +171,6 @@
                                         <ul id="navigation">
                                             <li><a href="index.html">Trang chủ</a></li>
                                             <li><a href="job_listing.html">Kiếm việc </a></li>
-                                            <!-- <li><a href="about.html">About</a></li>
-                                            <li><a href="#">Page</a>
-                                                <ul class="submenu">
-                                                    <li><a href="blog.html">Blog</a></li>
-                                                    <li><a href="single-blog.html">Blog Details</a></li>
-                                                    <li><a href="elements.html">Elements</a></li>
-                                                    <li><a href="job_details.html">job Details</a></li>
-                                                </ul>
-                                            </li>
-                                            <li><a href="contact.html">Contact</a></li> -->
                                         </ul>
                                     </nav>
                                 </div>          
@@ -91,34 +195,30 @@
                 <div class="single-slider slider-height d-flex align-items-center" data-background="assets/img/hero/h1_hero.jpg">
                     <div class="container">
                         <div class="row">
-                            <div class="col-xl-6 col-lg-9 col-md-10">
+                            <div class="col-xl-8 col-lg-9 col-md-10 mx-auto text-center">
                                 <div class="hero__caption">
-                                    <h1>Find the most exciting startup jobs</h1>
+                                    <h1>Tìm kiếm công việc mơ ước của bạn</h1>
+                                    <p style="font-size: 18px; color: #666; margin-bottom: 0;">Khám phá hàng ngàn cơ hội việc làm hấp dẫn</p>
                                 </div>
                             </div>
                         </div>
-                        <!-- Search Box -->
+                        <!-- Enhanced Search Box -->
                         <div class="row">
-                            <div class="col-xl-8">
-                                <!-- form -->
-                                <form action="#" class="search-box">
-                                    <div class="input-form">
-                                        <input type="text" placeholder="Job Tittle or keyword">
-                                    </div>
-                                    <div class="select-form">
-                                        <div class="select-itms">
-                                            <select name="select" id="select1">
-                                                <option value="">Location BD</option>
-                                                <option value="">Location PK</option>
-                                                <option value="">Location US</option>
-                                                <option value="">Location UK</option>
-                                            </select>
-                                        </div>
-                                    </div>
-                                    <div class="search-form">
-                                        <a href="#">Find job</a>
-                                    </div>	
-                                </form>	
+                            <div class="col-12">
+                                <div class="enhanced-search-box">
+                                    <form id="main-search-form" class="search-input-container">
+                                        <input 
+                                            type="text" 
+                                            id="main-search-input" 
+                                            placeholder="Tìm kiếm việc làm theo tên công việc, công ty, kỹ năng..."
+                                            autocomplete="off"
+                                        >
+                                        <button type="submit" id="main-search-btn">
+                                            <i class="fas fa-search"></i>
+                                            <span>Tìm việc</span>
+                                        </button>
+                                    </form>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -126,435 +226,6 @@
             </div>
         </div>
         <!-- slider Area End-->
-        <!-- Our Services Start -->
-        <div class="our-services section-pad-t30">
-            <div class="container">
-                <!-- Section Tittle -->
-                <div class="row">
-                    <div class="col-lg-12">
-                        <div class="section-tittle text-center">
-                            <span>FEATURED TOURS Packages</span>
-                            <h2>Browse Top Categories </h2>
-                        </div>
-                    </div>
-                </div>
-                <div class="row d-flex justify-contnet-center">
-                    <div class="col-xl-3 col-lg-3 col-md-4 col-sm-6">
-                        <div class="single-services text-center mb-30">
-                            <div class="services-ion">
-                                <span class="flaticon-tour"></span>
-                            </div>
-                            <div class="services-cap">
-                               <h5><a href="job_listing.html">Design & Creative</a></h5>
-                                <span>(653)</span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-xl-3 col-lg-3 col-md-4 col-sm-6">
-                        <div class="single-services text-center mb-30">
-                            <div class="services-ion">
-                                <span class="flaticon-cms"></span>
-                            </div>
-                            <div class="services-cap">
-                               <h5><a href="job_listing.html">Design & Development</a></h5>
-                                <span>(658)</span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-xl-3 col-lg-3 col-md-4 col-sm-6">
-                        <div class="single-services text-center mb-30">
-                            <div class="services-ion">
-                                <span class="flaticon-report"></span>
-                            </div>
-                            <div class="services-cap">
-                               <h5><a href="job_listing.html">Sales & Marketing</a></h5>
-                                <span>(658)</span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-xl-3 col-lg-3 col-md-4 col-sm-6">
-                        <div class="single-services text-center mb-30">
-                            <div class="services-ion">
-                                <span class="flaticon-app"></span>
-                            </div>
-                            <div class="services-cap">
-                               <h5><a href="job_listing.html">Mobile Application</a></h5>
-                                <span>(658)</span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-xl-3 col-lg-3 col-md-4 col-sm-6">
-                        <div class="single-services text-center mb-30">
-                            <div class="services-ion">
-                                <span class="flaticon-helmet"></span>
-                            </div>
-                            <div class="services-cap">
-                               <h5><a href="job_listing.html">Construction</a></h5>
-                                <span>(658)</span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-xl-3 col-lg-3 col-md-4 col-sm-6">
-                        <div class="single-services text-center mb-30">
-                            <div class="services-ion">
-                                <span class="flaticon-high-tech"></span>
-                            </div>
-                            <div class="services-cap">
-                               <h5><a href="job_listing.html">Information Technology</a></h5>
-                                <span>(658)</span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-xl-3 col-lg-3 col-md-4 col-sm-6">
-                        <div class="single-services text-center mb-30">
-                            <div class="services-ion">
-                                <span class="flaticon-real-estate"></span>
-                            </div>
-                            <div class="services-cap">
-                               <h5><a href="job_listing.html">Real Estate</a></h5>
-                                <span>(658)</span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-xl-3 col-lg-3 col-md-4 col-sm-6">
-                        <div class="single-services text-center mb-30">
-                            <div class="services-ion">
-                                <span class="flaticon-content"></span>
-                            </div>
-                            <div class="services-cap">
-                               <h5><a href="job_listing.html">Content Writer</a></h5>
-                                <span>(658)</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <!-- More Btn -->
-                <!-- Section Button -->
-                <div class="row">
-                    <div class="col-lg-12">
-                        <div class="browse-btn2 text-center mt-50">
-                            <a href="job_listing.html" class="border-btn2">Browse All Sectors</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <!-- Our Services End -->
-        <!-- Online CV Area Start -->
-         <div class="online-cv cv-bg section-overly pt-90 pb-120"  data-background="assets/img/gallery/cv_bg.jpg">
-            <div class="container">
-                <div class="row justify-content-center">
-                    <div class="col-xl-10">
-                        <div class="cv-caption text-center">
-                            <p class="pera1">FEATURED TOURS Packages</p>
-                            <p class="pera2"> Make a Difference with Your Online Resume!</p>
-                            <a href="#" class="border-btn2 border-btn4">Upload your cv</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <!-- Online CV Area End-->
-        <!-- Featured_job_start -->
-        <section class="featured-job-area feature-padding">
-            <div class="container">
-                <!-- Section Tittle -->
-                <div class="row">
-                    <div class="col-lg-12">
-                        <div class="section-tittle text-center">
-                            <span>Recent Job</span>
-                            <h2>Featured Jobs</h2>
-                        </div>
-                    </div>
-                </div>
-                <div class="row justify-content-center">
-                    <div class="col-xl-10">
-                        <!-- single-job-content -->
-                        <div class="single-job-items mb-30">
-                            <div class="job-items">
-                                <div class="company-img">
-                                    <a href="job_details.html"><img src="assets/img/icon/job-list1.png" alt=""></a>
-                                </div>
-                                <div class="job-tittle">
-                                    <a href="job_details.html"><h4>Digital Marketer</h4></a>
-                                    <ul>
-                                        <li>Creative Agency</li>
-                                        <li><i class="fas fa-map-marker-alt"></i>Athens, Greece</li>
-                                        <li>$3500 - $4000</li>
-                                    </ul>
-                                </div>
-                            </div>
-                            <div class="items-link f-right">
-                                <a href="job_details.html">Full Time</a>
-                                <span>7 hours ago</span>
-                            </div>
-                        </div>
-                        <!-- single-job-content -->
-                        <div class="single-job-items mb-30">
-                            <div class="job-items">
-                                <div class="company-img">
-                                    <a href="job_details.html"><img src="assets/img/icon/job-list2.png" alt=""></a>
-                                </div>
-                                <div class="job-tittle">
-                                    <a href="job_details.html"><h4>Digital Marketer</h4></a>
-                                    <ul>
-                                        <li>Creative Agency</li>
-                                        <li><i class="fas fa-map-marker-alt"></i>Athens, Greece</li>
-                                        <li>$3500 - $4000</li>
-                                    </ul>
-                                </div>
-                            </div>
-                            <div class="items-link f-right">
-                                <a href="job_details.html">Full Time</a>
-                                <span>7 hours ago</span>
-                            </div>
-                        </div>
-                         <!-- single-job-content -->
-                        <div class="single-job-items mb-30">
-                            <div class="job-items">
-                                <div class="company-img">
-                                    <a href="job_details.html"><img src="assets/img/icon/job-list3.png" alt=""></a>
-                                </div>
-                                <div class="job-tittle">
-                                    <a href="job_details.html"><h4>Digital Marketer</h4></a>
-                                    <ul>
-                                        <li>Creative Agency</li>
-                                        <li><i class="fas fa-map-marker-alt"></i>Athens, Greece</li>
-                                        <li>$3500 - $4000</li>
-                                    </ul>
-                                </div>
-                            </div>
-                            <div class="items-link f-right">
-                                <a href="job_details.html">Full Time</a>
-                                <span>7 hours ago</span>
-                            </div>
-                        </div>
-                         <!-- single-job-content -->
-                        <div class="single-job-items mb-30">
-                            <div class="job-items">
-                                <div class="company-img">
-                                    <a href="job_details.html"><img src="assets/img/icon/job-list4.png" alt=""></a>
-                                </div>
-                                <div class="job-tittle">
-                                    <a href="job_details.html"><h4>Digital Marketer</h4></a>
-                                    <ul>
-                                        <li>Creative Agency</li>
-                                        <li><i class="fas fa-map-marker-alt"></i>Athens, Greece</li>
-                                        <li>$3500 - $4000</li>
-                                    </ul>
-                                </div>
-                            </div>
-                            <div class="items-link f-right">
-                                <a href="job_details.html">Full Time</a>
-                                <span>7 hours ago</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-        <!-- Featured_job_end -->
-        <!-- How  Apply Process Start-->
-        <div class="apply-process-area apply-bg pt-150 pb-150" data-background="assets/img/gallery/how-applybg.png">
-            <div class="container">
-                <!-- Section Tittle -->
-                <div class="row">
-                    <div class="col-lg-12">
-                        <div class="section-tittle white-text text-center">
-                            <span>Apply process</span>
-                            <h2> How it works</h2>
-                        </div>
-                    </div>
-                </div>
-                <!-- Apply Process Caption -->
-                <div class="row">
-                    <div class="col-lg-4 col-md-6">
-                        <div class="single-process text-center mb-30">
-                            <div class="process-ion">
-                                <span class="flaticon-search"></span>
-                            </div>
-                            <div class="process-cap">
-                               <h5>1. Search a job</h5>
-                               <p>Sorem spsum dolor sit amsectetur adipisclit, seddo eiusmod tempor incididunt ut laborea.</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-4 col-md-6">
-                        <div class="single-process text-center mb-30">
-                            <div class="process-ion">
-                                <span class="flaticon-curriculum-vitae"></span>
-                            </div>
-                            <div class="process-cap">
-                               <h5>2. Apply for job</h5>
-                               <p>Sorem spsum dolor sit amsectetur adipisclit, seddo eiusmod tempor incididunt ut laborea.</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-4 col-md-6">
-                        <div class="single-process text-center mb-30">
-                            <div class="process-ion">
-                                <span class="flaticon-tour"></span>
-                            </div>
-                            <div class="process-cap">
-                               <h5>3. Get your job</h5>
-                               <p>Sorem spsum dolor sit amsectetur adipisclit, seddo eiusmod tempor incididunt ut laborea.</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-             </div>
-        </div>
-        <!-- How  Apply Process End-->
-        <!-- Testimonial Start -->
-        <div class="testimonial-area testimonial-padding">
-            <div class="container">
-                <!-- Testimonial contents -->
-                <div class="row d-flex justify-content-center">
-                    <div class="col-xl-8 col-lg-8 col-md-10">
-                        <div class="h1-testimonial-active dot-style">
-                            <!-- Single Testimonial -->
-                            <div class="single-testimonial text-center">
-                                <!-- Testimonial Content -->
-                                <div class="testimonial-caption ">
-                                    <!-- founder -->
-                                    <div class="testimonial-founder  ">
-                                        <div class="founder-img mb-30">
-                                            <img src="assets/img/testmonial/testimonial-founder.png" alt="">
-                                            <span>Margaret Lawson</span>
-                                            <p>Creative Director</p>
-                                        </div>
-                                    </div>
-                                    <div class="testimonial-top-cap">
-                                        <p>"I am at an age where I just want to be fit and healthy our bodies are our responsibility! So start caring for your body and it will care for you. Eat clean it will care for you and workout hard."</p>
-                                    </div>
-                                </div>
-                            </div>
-                            <!-- Single Testimonial -->
-                            <div class="single-testimonial text-center">
-                                <!-- Testimonial Content -->
-                                <div class="testimonial-caption ">
-                                    <!-- founder -->
-                                    <div class="testimonial-founder  ">
-                                        <div class="founder-img mb-30">
-                                            <img src="assets/img/testmonial/testimonial-founder.png" alt="">
-                                            <span>Margaret Lawson</span>
-                                            <p>Creative Director</p>
-                                        </div>
-                                    </div>
-                                    <div class="testimonial-top-cap">
-                                        <p>"I am at an age where I just want to be fit and healthy our bodies are our responsibility! So start caring for your body and it will care for you. Eat clean it will care for you and workout hard."</p>
-                                    </div>
-                                </div>
-                            </div>
-                            <!-- Single Testimonial -->
-                            <div class="single-testimonial text-center">
-                                <!-- Testimonial Content -->
-                                <div class="testimonial-caption ">
-                                    <!-- founder -->
-                                    <div class="testimonial-founder  ">
-                                        <div class="founder-img mb-30">
-                                            <img src="assets/img/testmonial/testimonial-founder.png" alt="">
-                                            <span>Margaret Lawson</span>
-                                            <p>Creative Director</p>
-                                        </div>
-                                    </div>
-                                    <div class="testimonial-top-cap">
-                                        <p>"I am at an age where I just want to be fit and healthy our bodies are our responsibility! So start caring for your body and it will care for you. Eat clean it will care for you and workout hard."</p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <!-- Testimonial End -->
-         <!-- Support Company Start-->
-         <div class="support-company-area support-padding fix">
-            <div class="container">
-                <div class="row align-items-center">
-                    <div class="col-xl-6 col-lg-6">
-                        <div class="right-caption">
-                            <!-- Section Tittle -->
-                            <div class="section-tittle section-tittle2">
-                                <span>What we are doing</span>
-                                <h2>24k Talented people are getting Jobs</h2>
-                            </div>
-                            <div class="support-caption">
-                                <p class="pera-top">Mollit anim laborum duis au dolor in voluptate velit ess cillum dolore eu lore dsu quality mollit anim laborumuis au dolor in voluptate velit cillum.</p>
-                                <p>Mollit anim laborum.Duis aute irufg dhjkolohr in re voluptate velit esscillumlore eu quife nrulla parihatur. Excghcepteur signjnt occa cupidatat non inulpadeserunt mollit aboru. temnthp incididbnt ut labore mollit anim laborum suis aute.</p>
-                                <a href="about.html" class="btn post-btn">Post a job</a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-xl-6 col-lg-6">
-                        <div class="support-location-img">
-                            <img src="assets/img/service/support-img.jpg" alt="">
-                            <div class="support-img-cap text-center">
-                                <p>Since</p>
-                                <span>1994</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <!-- Support Company End-->
-        <!-- Blog Area Start -->
-        <div class="home-blog-area blog-h-padding">
-            <div class="container">
-                <!-- Section Tittle -->
-                <div class="row">
-                    <div class="col-lg-12">
-                        <div class="section-tittle text-center">
-                            <span>Our latest blog</span>
-                            <h2>Our recent news</h2>
-                        </div>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-xl-6 col-lg-6 col-md-6">
-                        <div class="home-blog-single mb-30">
-                            <div class="blog-img-cap">
-                                <div class="blog-img">
-                                    <img src="assets/img/blog/home-blog1.jpg" alt="">
-                                    <!-- Blog date -->
-                                    <div class="blog-date text-center">
-                                        <span>24</span>
-                                        <p>Now</p>
-                                    </div>
-                                </div>
-                                <div class="blog-cap">
-                                    <p>|   Properties</p>
-                                    <h3><a href="single-blog.html">Footprints in Time is perfect House in Kurashiki</a></h3>
-                                    <a href="#" class="more-btn">Read more »</a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-xl-6 col-lg-6 col-md-6">
-                        <div class="home-blog-single mb-30">
-                            <div class="blog-img-cap">
-                                <div class="blog-img">
-                                    <img src="assets/img/blog/home-blog2.jpg" alt="">
-                                    <!-- Blog date -->
-                                    <div class="blog-date text-center">
-                                        <span>24</span>
-                                        <p>Now</p>
-                                    </div>
-                                </div>
-                                <div class="blog-cap">
-                                    <p>|   Properties</p>
-                                    <h3><a href="single-blog.html">Footprints in Time is perfect House in Kurashiki</a></h3>
-                                    <a href="#" class="more-btn">Read more »</a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <!-- Blog Area End -->
 
     </main>
     <footer>
@@ -568,7 +239,7 @@
                              <div class="footer-tittle">
                                  <h4>About Us</h4>
                                  <div class="footer-pera">
-                                     <p>Heaven frucvitful doesn't cover lesser dvsays appear creeping seasons so behold.</p>
+                                     <p>Two of the most motivational AI learner</p>
                                 </div>
                              </div>
                          </div>
@@ -581,11 +252,10 @@
                                 <h4>Contact Info</h4>
                                 <ul>
                                     <li>
-                                    <p>Address :Your address goes
-                                        here, your demo address.</p>
+                                    <p>Address: UIT.</p>
                                     </li>
-                                    <li><a href="#">Phone : +8880 44338899</a></li>
-                                    <li><a href="#">Email : info@colorlib.com</a></li>
+                                    <!-- <li><a href="#">Phone : +8880 44338899</a></li>
+                                    <li><a href="#">Email : info@colorlib.com</a></li> -->
                                 </ul>
                             </div>
 
@@ -596,11 +266,11 @@
                             <div class="footer-tittle">
                                 <h4>Important Link</h4>
                                 <ul>
-                                    <li><a href="#"> View Project</a></li>
+                                    <!-- <li><a href="#"> View Project</a></li>
                                     <li><a href="#">Contact Us</a></li>
                                     <li><a href="#">Testimonial</a></li>
                                     <li><a href="#">Proparties</a></li>
-                                    <li><a href="#">Support</a></li>
+                                    <li><a href="#">Support</a></li> -->
                                 </ul>
                             </div>
                         </div>
@@ -610,10 +280,10 @@
                             <div class="footer-tittle">
                                 <h4>Newsletter</h4>
                                 <div class="footer-pera footer-pera2">
-                                 <p>Heaven fruitful doesn't over lesser in days. Appear creeping.</p>
+                                 <!-- <p>Heaven fruitful doesn't over lesser in days. Appear creeping.</p> -->
                              </div>
                              <!-- Form -->
-                             <div class="footer-form" >
+                             <!-- <div class="footer-form" >
                                  <div id="mc_embed_signup">
                                      <form target="_blank" action="https://spondonit.us12.list-manage.com/subscribe/post?u=1462626880ade1ac87bd9c93a&amp;id=92a4423d01"
                                      method="get" class="subscribe_form relative mail_part">
@@ -626,8 +296,8 @@
                                          </div>
                                          <div class="mt-10 info"></div>
                                      </form>
-                                 </div>
-                             </div>
+                                 </div> -->
+                             <!-- </div> -->
                             </div>
                         </div>
                     </div>
@@ -725,6 +395,58 @@
 		<!-- Jquery Plugins, main Jquery -->	
         <script src="./assets/js/plugins.js"></script>
         <script src="./assets/js/main.js"></script>
+        
+        <!-- Main Search Functionality -->
+        <script>
+            document.addEventListener('DOMContentLoaded', function() {
+                const searchForm = document.getElementById('main-search-form');
+                const searchInput = document.getElementById('main-search-input');
+                const searchBtn = document.getElementById('main-search-btn');
+                
+                // Handle form submission
+                searchForm.addEventListener('submit', function(e) {
+                    e.preventDefault();
+                    performMainSearch();
+                });
+                
+                // Handle Enter key in search input
+                searchInput.addEventListener('keypress', function(e) {
+                    if (e.key === 'Enter') {
+                        e.preventDefault();
+                        performMainSearch();
+                    }
+                });
+                
+                // Handle search button click
+                searchBtn.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    performMainSearch();
+                });
+                
+                function performMainSearch() {
+                    const query = searchInput.value.trim();
+                    
+                    if (query.length < 1) {
+                        // If no search query, just go to job listing page
+                        window.location.href = 'job_listing.html';
+                        return;
+                    }
+                    
+                    // Redirect to job_listing.html with search parameter
+                    const searchURL = `job_listing.html?search=${encodeURIComponent(query)}`;
+                    window.location.href = searchURL;
+                }
+                
+                // Add some visual feedback on input focus
+                searchInput.addEventListener('focus', function() {
+                    searchForm.style.transform = 'scale(1.02)';
+                });
+                
+                searchInput.addEventListener('blur', function() {
+                    searchForm.style.transform = 'scale(1)';
+                });
+            });
+        </script>
         
     </body>
 </html>
