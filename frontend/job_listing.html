@@ -988,12 +988,17 @@
         <!-- Messages Area -->
         <div id="chatbot-messages" class="chatbot-messages">
             <div class="message bot">
-                <div>👋 Xin chào! Tôi là trợ lý AI chuyên về việc làm.</div>
+                <div>🤖 Xin chào! Tôi là trợ lý AI tìm việc được tích hợp với Colab.</div>
                 <div style="margin-top: 8px;">Tôi có thể giúp bạn:</div>
-                <div style="margin-top: 4px;">• Tìm kiếm việc làm phù hợp</div>
-                <div style="margin-top: 2px;">• Phân tích CV của bạn</div>
-                <div style="margin-top: 2px;">• Tư vấn nghề nghiệp</div>
-                <div style="margin-top: 8px;">Bạn có thể upload CV để tôi phân tích hoặc đặt câu hỏi gì đó! 😊</div>
+                <div style="margin-top: 4px;">• 🔍 Tìm kiếm việc làm phù hợp với công nghệ RAG</div>
+                <div style="margin-top: 2px;">• 📄 Phân tích CV của bạn</div>
+                <div style="margin-top: 2px;">• 💼 Tư vấn nghề nghiệp thông minh</div>
+                <div style="margin-top: 2px;">• 💰 Thông tin về mức lương thị trường</div>
+                <div style="margin-top: 8px; padding: 8px; background: #f0f8ff; border-radius: 6px; font-size: 12px;">
+                    <strong>⚠️ Lưu ý:</strong> Để chatbot hoạt động, cần cập nhật URL từ Colab notebook.<br>
+                    <code style="font-size: 10px; word-break: break-all;" id="current-api-url">URL hiện tại: https://your-ngrok-url.ngrok-free.app/api/chat</code>
+                </div>
+                <div style="margin-top: 8px;">Upload CV và hỏi tôi bất cứ điều gì! 😊</div>
             </div>
         </div>
 
@@ -1749,8 +1754,14 @@
     let chatbotOpen = false;
     let uploadedCV = null;
     
-    // Chatbot API configuration
-    const CHATBOT_API_URL = 'https://your-colab-api-url.com/chat'; // Thay thế bằng URL API thực tế
+    // Chatbot API configuration - Update this with your ngrok URL from Colab
+    let CHATBOT_API_URL = 'https://9df6-34-145-17-230.ngrok-free.app'; // Replace with actual ngrok URL from Colab
+    
+    // Function to update API URL dynamically
+    function updateAPIURL(newURL) {
+        CHATBOT_API_URL = newURL;
+        console.log('🔗 Updated API URL:', CHATBOT_API_URL);
+    }
     
     // Initialize chatbot
     function initializeChatbot() {
@@ -1890,11 +1901,7 @@
                 
                 // If response includes job recommendations
                 if (response.job_recommendations && response.job_recommendations.length > 0) {
-                    let jobsText = "🎯 **Việc làm phù hợp:**\n";
-                    response.job_recommendations.forEach((job, index) => {
-                        jobsText += `${index + 1}. ${job.title} - ${job.company}\n`;
-                    });
-                    addMessage(jobsText, 'bot');
+                    addJobRecommendations(response.job_recommendations);
                 }
             } else {
                 addMessage('Xin lỗi, tôi gặp vấn đề khi xử lý yêu cầu của bạn. Vui lòng thử lại.', 'bot');
@@ -1913,52 +1920,31 @@
     }
     
     async function sendToAPI(data) {
-        // This is a mock function - replace with actual API call
-        console.log('🚀 Sending to API:', data);
+        console.log('🚀 Sending to Colab API:', CHATBOT_API_URL, data);
         
-        // Mock API response - replace this with actual fetch call
-        return new Promise((resolve) => {
-            setTimeout(() => {
-                // Mock responses based on message content
-                const message = data.message.toLowerCase();
-                
-                if (message.includes('cv') || data.has_cv) {
-                    resolve({
-                        response: "Tôi đã nhận được CV của bạn. Đây là phân tích chi tiết:",
-                        cv_analysis: "CV của bạn có những điểm mạnh:\n• Kinh nghiệm phù hợp với vị trí\n• Kỹ năng đa dạng\n• Học vấn tốt\n\nGợi ý cải thiện:\n• Thêm thông tin về dự án cụ thể\n• Cập nhật chứng chỉ mới"
-                    });
-                } else if (message.includes('việc làm') || message.includes('job')) {
-                    resolve({
-                        response: "Tôi sẽ tìm những việc làm phù hợp với bạn:",
-                        job_recommendations: [
-                            { title: "Frontend Developer", company: "Công ty ABC" },
-                            { title: "Full Stack Developer", company: "Công ty XYZ" }
-                        ]
-                    });
-                } else {
-                    resolve({
-                        response: `Cảm ơn bạn đã hỏi: "${data.message}". Tôi hiểu bạn đang quan tâm về vấn đề này. Bạn có thể cung cấp thêm thông tin để tôi tư vấn chính xác hơn không?`
-                    });
-                }
-            }, 1500);
-        });
-        
-        // Uncomment and modify this for actual API call:
-        /*
         try {
             const formData = new FormData();
             formData.append('message', data.message);
-            formData.append('timestamp', data.timestamp);
+            formData.append('timestamp', data.timestamp || new Date().toISOString());
             
+            // Determine endpoint based on whether CV is uploaded
+            let endpoint = CHATBOT_API_URL;
             if (data.cv_file) {
+                endpoint += '/api/chat-with-cv';
                 formData.append('cv_file', data.cv_file);
+            } else {
+                endpoint += '/api/chat';
             }
             
-            const response = await fetch(CHATBOT_API_URL, {
+            console.log('🎯 Using endpoint:', endpoint);
+            
+            const response = await fetch(endpoint, {
                 method: 'POST',
                 body: formData,
                 headers: {
-                    // Add any required headers
+                    // Don't set Content-Type header - let browser set it for FormData
+                    // Add ngrok bypass header if needed
+                    'ngrok-skip-browser-warning': 'true'
                 }
             });
             
@@ -1966,12 +1952,20 @@
                 throw new Error(`HTTP error! status: ${response.status}`);
             }
             
-            return await response.json();
+            const result = await response.json();
+            console.log('✅ Colab API Response:', result);
+            return result;
+            
         } catch (error) {
-            console.error('API Error:', error);
-            throw error;
+            console.error('❌ Colab API Error:', error);
+            
+            // Fallback response for connection errors
+            return {
+                response: `Xin lỗi, tôi hiện không thể kết nối đến Colab server (${error.message}). Vui lòng kiểm tra:\n• Colab notebook có đang chạy không?\n• Ngrok tunnel có hoạt động không?\n• URL API có chính xác không?\n\n💡 Hiện tại URL: ${CHATBOT_API_URL}`,
+                cv_analysis: null,
+                job_recommendations: []
+            };
         }
-        */
     }
     
     function addMessage(text, type) {
@@ -2097,4 +2091,102 @@
         // Add small delay to ensure other scripts are loaded
         setTimeout(initializeChatbot, 500);
     });
+
+    function addJobRecommendations(jobRecommendations) {
+        const messagesContainer = document.getElementById('chatbot-messages');
+        
+        if (!jobRecommendations || jobRecommendations.length === 0) {
+            return;
+        }
+        
+        // Create job recommendations container
+        const jobsContainer = document.createElement('div');
+        jobsContainer.className = 'message bot';
+        jobsContainer.style.maxWidth = '90%';
+        jobsContainer.style.padding = '16px';
+        
+        let jobsHTML = '<div style="margin-bottom: 12px;"><strong>🎯 Việc làm được đề xuất:</strong></div>';
+        
+        jobRecommendations.forEach((job, index) => {
+            const relevanceColor = job.relevance_score >= 0.8 ? '#2ed573' : job.relevance_score >= 0.6 ? '#ffa726' : '#ff6b6b';
+            const relevanceText = job.relevance_score >= 0.8 ? 'Rất phù hợp' : job.relevance_score >= 0.6 ? 'Phù hợp' : 'Có thể phù hợp';
+            
+            jobsHTML += `
+                <div class="job-recommendation-card" data-job-id="${job.id}" style="
+                    border: 1px solid #e0e0e0;
+                    border-radius: 10px;
+                    padding: 14px;
+                    margin: 8px 0;
+                    background: #f8f9fa;
+                    cursor: pointer;
+                    transition: all 0.3s ease;
+                    position: relative;
+                " onmouseover="this.style.boxShadow='0 4px 12px rgba(0,0,0,0.15)'; this.style.transform='translateY(-2px)'" 
+                   onmouseout="this.style.boxShadow='none'; this.style.transform='translateY(0)'">
+                    
+                    <!-- Relevance badge -->
+                    <div style="position: absolute; top: 10px; right: 12px; background: ${relevanceColor}; color: white; padding: 4px 8px; border-radius: 12px; font-size: 10px; font-weight: bold;">
+                        ${Math.round(job.relevance_score * 100)}% - ${relevanceText}
+                    </div>
+                    
+                    <!-- Job content -->
+                    <div style="margin-right: 80px;">
+                        <h5 style="margin: 0 0 8px 0; color: #1e2147; font-size: 16px; font-weight: 600;">
+                            ${job.title || job.field || 'Vị trí tuyển dụng'}
+                        </h5>
+                        
+                        <div style="display: flex; flex-wrap: wrap; gap: 12px; margin-bottom: 6px; font-size: 13px; color: #666;">
+                            <div style="display: flex; align-items: center; gap: 4px;">
+                                <i class="fas fa-building" style="color: #ff4757; width: 12px;"></i>
+                                <span>${job.company || 'Công ty'}</span>
+                            </div>
+                            <div style="display: flex; align-items: center; gap: 4px;">
+                                <i class="fas fa-map-marker-alt" style="color: #ff4757; width: 12px;"></i>
+                                <span>${job.location || 'Địa điểm'}</span>
+                            </div>
+                        </div>
+                        
+                        <div style="display: flex; flex-wrap: wrap; gap: 12px; font-size: 13px; color: #666;">
+                            <div style="display: flex; align-items: center; gap: 4px;">
+                                <i class="fas fa-money-bill-wave" style="color: #2ed573; width: 12px;"></i>
+                                <span style="color: #2ed573; font-weight: 600;">${job.salary || 'Thỏa thuận'}</span>
+                            </div>
+                            <div style="display: flex; align-items: center; gap: 4px;">
+                                <i class="fas fa-clock" style="color: #ff4757; width: 12px;"></i>
+                                <span>${job.experience || 'Không yêu cầu'}</span>
+                            </div>
+                        </div>
+                        
+                        ${job.field ? `<div style="margin-top: 6px; font-size: 12px; color: #888;">
+                            <i class="fas fa-tag" style="color: #ff4757; margin-right: 4px;"></i>
+                            ${job.field}
+                        </div>` : ''}
+                    </div>
+                    
+                    <!-- Click indicator -->
+                    <div style="position: absolute; bottom: 8px; right: 12px; color: #1bcf6b; font-size: 11px; font-weight: 500;">
+                        👆 Click để xem chi tiết
+                    </div>
+                </div>
+            `;
+        });
+        
+        jobsContainer.innerHTML = jobsHTML;
+        messagesContainer.appendChild(jobsContainer);
+        
+        // Add click handlers for job recommendations
+        jobsContainer.querySelectorAll('.job-recommendation-card').forEach(card => {
+            card.addEventListener('click', function() {
+                const jobId = this.getAttribute('data-job-id');
+                
+                if (jobId) {
+                    // Use simple id parameter - much cleaner and works consistently
+                    const detailUrl = `job_details.html?id=${jobId}`;
+                    window.open(detailUrl, '_blank');
+                }
+            });
+        });
+        
+        messagesContainer.scrollTop = messagesContainer.scrollHeight;
+    }
 </script>

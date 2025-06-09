@@ -1,2 +1,6 @@
 .env
 crawler/.env
+colab_apiDS108_1.ipynb
+rag_search.ipynb
+colab_apiDS108_2.ipynb
+streamlit_app.py

@@ -212,7 +212,7 @@ def load_jobs_from_csv():
                 "maxSalary": max_salary,
             }
             jobs_data.append(job)
-        
+            
         # Initialize BM25 index
         if jobs_data:
             print(f"Loaded {len(jobs_data)} jobs from CSV")
@@ -366,7 +366,7 @@ async def get_jobs(
                 or search_lower in job["field"].lower() 
                 or search_lower in job["jobDescription"].lower()
                 or search_lower in job["companyName"].lower()
-                or search_lower in job["jobRequirements"].lower()
+                    or search_lower in job["jobRequirements"].lower()
             ]
             print(f"Simple search for short query: {len(filtered_jobs)} jobs found")
     
