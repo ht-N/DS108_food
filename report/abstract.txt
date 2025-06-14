@@ -1,0 +1,27 @@
+Viet:
+Tìm kiếm việc làm sau khi ra trường luôn là một vấn đề cấp thiết cho sinh viên mứoi ra trường. 
+Không phải ai cũng có cơ hội tìm được việc làm mình yêu thích và phù hợp với khả năng của bản thân
+Đã có nhiều ứng dụng được triển kahi cho việc tìm kiếm việc almf dựa trên nhu cầu và kahr năng của ứng viên và nhà tuyển dụng
+Với sự phát triển mạnh mẽ của AI, nhóm chúnga em có phát triển một ứng dụng chatbot để tìm các công việc phù hợp với resume được tải lên
+Ứng dụng được lấy từ dữ liệu thật, áp dụng các phưng phá xử lý data và triển khai một cách đồng bộ nhằm đem lại cho ngừoi dùng trỉa nghiệm tối ưu nhất
+
+
+=========
+Eng : 
+Finding a job after graduation is always a pressing concern for new graduates.
+Not everyone is fortunate enough to land a job that matches both their interests and skills.
+Many platforms have been developed to help match job seekers with employers based on needs and qualifications.
+With the rapid advancement of AI, our team has built a chatbot application that recommends suitable jobs based on an uploaded resume.
+The application uses real-world data and integrates data processing techniques in a streamlined way to provide users with the most optimized experience.
+
+
+eng v2:
+Job hunting after graduation remains a major challenge for many fresh graduates.
+Not everyone has the opportunity to secure a position that truly aligns with their personal interests and skill sets. While several job-matching platforms exist, many still fall short in providing truly personalized recommendations.
+
+To address this issue, our team has developed an AI-powered chatbot application that helps users discover job opportunities tailored specifically to their resumes. Users can simply upload their resumes, and the chatbot will analyze their qualifications, experience, and preferences to recommend the most relevant job openings.
+
+The system is built using real-world job market data and leverages advanced data processing, natural language processing (NLP), and machine learning techniques to understand both user profiles and job requirements. By implementing a streamlined and intelligent matching process, our goal is to enhance the job search experience and increase the chances of job seekers finding roles that are both suitable and satisfying.
+
+In addition, the application offers features such as skill gap analysis, personalized career advice, and resume optimization tips — all aimed at empowering graduates to make informed career decisions in a competitive job market.
+
